@@ -2,29 +2,21 @@
 
 require __DIR__.'/vendor/autoload.php';
 
+define('TITLE','Cadastrar vaga');
+
 use \App\Entity\Vaga;
+$obVaga = new Vaga;
 
-//validação do post
-if(isset($_POST['titulo'], $_POST['descricao'], $_POST['ativo'])) {
-    
-    //criando uma nova vaga 
-    $obVaga = new Vaga;
+//VALIDAÇÃO DO POST
+if(isset($_POST['titulo'],$_POST['descricao'],$_POST['ativo'])){
 
-    //Definir os valores 
-    $obVaga->titulo = $_POST['titulo'];
-    $obVaga->descricao = $_POST['descricao'];
-    $obVaga->ativo = $_POST['ativo'];
-    
-    /*imprimir para teste 
-    echo "<pre>"; print_r($obVaga); echo "</pre>"; exit;
-    */
+  $obVaga->titulo    = $_POST['titulo'];
+  $obVaga->descricao = $_POST['descricao'];
+  $obVaga->ativo     = $_POST['ativo'];
+  $obVaga->cadastrar();
 
-    //Cadastrar a vaga 
-    $obVaga->cadastrar();
-
-    header('location: index.php?status=success');
-    exit;
-
+  header('location: index.php?status=success');
+  exit;
 }
 
 include __DIR__.'/includes/header.php';
