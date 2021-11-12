@@ -84,6 +84,26 @@ class Database{
         return $this->connection->lastInsertId();
     }
 
+    /* Método responsavel por executar uma consulta no banco 
+        $where string
+        $order string
+        $limit string
+        $fields string
+        return PDOStatement
+    */
+    public function select($where = null, $order = null, $limit = null, $fields = '*'){
+        /*Dados da query - condição ternaria (se tiver conteudo na variavel $where) define ela como WHERE e o valor dela mesma, 
+        caso não tenha valor ela vai ficar vazia ("a mesma coisa para $order e $limit") */
+        $where = strlen($where) ? 'WHERE' .$where : '';
+        $where = strlen($order) ? 'WHERE' .$order : '';
+        $where = strlen($limit) ? 'WHERE' .$limit : '';
+
+        //Monta a query
+        $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$where.' '.$order.' '.$limit;
+
+        //Executa a query
+        return $this->execute($query);
+    }
 
 
 
